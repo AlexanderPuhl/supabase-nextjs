@@ -11,9 +11,11 @@
   "dependencies": {
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.54.0",
+    "@tabler/icons-react": "^3.34.1",
     "next": "15.4.6",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "sass": "^1.90.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
