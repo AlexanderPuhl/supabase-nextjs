@@ -1,20 +1,31 @@
 'use client';
+import { getSupabaseBrowserClient } from '@/supabase-utils/browserClient';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useRef } from 'react';
 
 export const Login = ({ isPasswordLogin }: { isPasswordLogin: boolean }) => {
 	const emailInputRef = useRef(null);
 	const passwordInputRef = useRef(null);
+	const supabase = getSupabaseBrowserClient();
+	const router = useRouter();
 
 	return (
 		<form
 			onSubmit={(event) => {
 				event.preventDefault();
-				if (isPasswordLogin) {
-					alert('User wants to login with password');
-				} else {
-					alert('User wants to login with magic link');
-				}
+				supabase.auth
+					.signInWithPassword({
+						email: emailInputRef.current.value,
+						password: passwordInputRef.current.value,
+					})
+					.then((result) => {
+						if (result.data?.user) {
+							router.push('/tickets');
+						} else {
+							alert('Could not sign in');
+						}
+					});
 			}}
 		>
 			<article style={{ maxWidth: '480px', margin: 'auto' }}>
